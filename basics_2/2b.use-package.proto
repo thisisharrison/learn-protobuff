@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "2a.package.proto";
+
+message MessageUsePackage {
+    my.package.MessagePackage hello = 1;
+}

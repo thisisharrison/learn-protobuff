@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+/*
+City contains Street
+Street contains Buildings
+*/
+
+
+message City {
+    enum Country {
+        COUNTRY_UNSPECIFIED = 0;
+        UNITIED_STATES = 1;
+        CHINA = 2;
+        JAPAN = 3;
+        // ...
+    }
+
+    string name = 1;
+    string zip_code = 2;
+    Country country_name = 3;
+
+    message Street {
+        string name = 1;
+        City city = 2; // using parent type
+
+        message Building {
+            string name = 1;
+            uint32 number = 2;
+            Street street = 3; // using parent type
+        }
+    }
+}
+
+message Address {
+    City city = 1;
+    // how to get nested message
+    City.Street street = 2;
+    City.Street.Building building = 3;
+}

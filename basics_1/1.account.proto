@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+// enum, default value is first value, first tag is 0
+enum EyeColor {
+    EYE_COLOR_UNSPECIFIED = 0; // generally keep the zero for unspecified
+    EYE_COLOR_GREEN = 1;
+    EYE_COLOR_BLUE = 2;
+    EYE_COLOR_BROWN = 3;
+}
+
+/*
+Account 
+Used to identify someone in our system 
+*/
+message Account {
+    uint32 id = 1;
+    uint32 age = 2;
+    string accountName = 3;
+    bytes smallPicture = 4; // picture in .jpeg format
+    bool isVerified = 5;
+    float height = 6; // in cm 
+    
+    repeated string phoneNumbers = 7; // 0 or more strings that represents phone numbers, default empty list
+
+    EyeColor eyeColor = 8;
+}
+

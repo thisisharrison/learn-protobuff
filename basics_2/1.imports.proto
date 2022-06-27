@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "0.nested_type.proto";
+
+message MessageImport {
+    MessageThree three = 2;
+}

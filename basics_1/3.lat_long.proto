@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message LatLong {
+    double latitude = 1; // more precision than flaot
+    double longitude = 2;  
+}

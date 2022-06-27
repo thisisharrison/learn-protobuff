@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+enum Country {
+    COUNTRY_UNSPECIFIED = 0;
+    UNITIED_STATES = 1;
+    CHINA = 2;
+    JAPAN = 3;
+    // ...
+}
+
+message City {
+    string name = 1;
+    string zip_code = 2;
+    Country country_name = 3;
+}

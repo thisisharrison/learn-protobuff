@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+
+// Nested message and enum inside MessageThree
+message MessageThree {
+  message MessageFour {
+    
+  }
+
+  enum EnumTwo {
+    ENUM_TWO_UNSPECIFIED = 0;
+    //...
+  }
+
+  MessageFour four = 1;
+  EnumTwo two = 2;
+}

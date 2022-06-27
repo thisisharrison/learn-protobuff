@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+message Money {
+    string currency = 1; // can use a enum
+    int64 integral = 2;
+    int32 decimal = 3;
+}
