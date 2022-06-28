@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package example.oneofs;
+
+message Result {
+    oneof result {
+        string this = 1;
+        string that = 2;
+    }
+}

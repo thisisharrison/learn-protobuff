@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package example.maps;
+
+message SizePrice {
+    string size = 1;
+    int32 price = 2;
+}
+
+message DrinkMap {
+    map<string, SizePrice> menu = 1;
+}
