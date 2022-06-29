@@ -1,5 +1,6 @@
 from google.protobuf import json_format
 
+import os
 import proto.simple_pb2 as simple_pb2
 import proto.complex_pb2 as complex_pb2
 import proto.enumeration_pb2 as enumeration_pb2
@@ -171,6 +172,65 @@ def print_people(address_book):
     for person in address_book.people:
         print(person)
 
+# Given some binary, deserialize it and print to stdout WITHOUT proto file
+def decode_raw():
+    '''
+    Returns field tags
+    1 {
+        1: "1"
+        2: 1
+        3: "1"
+        4 {
+            1: "1"
+            2: 1
+        }
+    }
+    '''
+    path = 'address.bin'
+    command = f'cat {path} | protoc --decode_raw'
+    os.system(command)
+
+# Given some binary, deserialize it and print to stdout WITH proto file
+def decode_with_proto():
+    '''
+    Returns field names
+    people {
+        name: "1"
+        id: 1
+        email: "1"
+        phones {
+            number: "1"
+            type: MOBILE
+        }
+    }
+    '''
+    binary_path = 'address.bin'
+    proto_path = 'proto/addressbook.proto'
+    # needs to include package name in the Message type otherwise "Type not defined" error
+    command = f'cat {binary_path} | protoc --decode=example.addressbook.AddressBook {proto_path}'
+    os.system(command)
+
+# Given some binary, deserialize it and save to txt
+# Encode the txt with the proto file and check if it matches the original binary
+def encode():
+    binary_path = 'address.bin'
+    proto_path = 'proto/addressbook.proto'
+    txt = 'address.txt'
+    temp = 'address.pb'
+    message = 'example.addressbook.AddressBook'
+
+    # Save decode message to txt file
+    command = f'cat {binary_path} | protoc --decode={message} {proto_path} > {txt}'
+    os.system(command)
+
+    # encode txt file to pb file
+    command = f'cat {txt} | protoc --encode={message} {proto_path} > {temp}'
+    os.system(command)
+
+    # diff pb and bin file. if the same, no output
+    os.system(f'diff {binary_path} {temp}')
+
+
 if __name__ == '__main__':
     # print(simple())
     # print(complex())
@@ -181,5 +241,9 @@ if __name__ == '__main__':
     # json(complex(), complex_pb2.Complex)
 
     # https://developers.google.com/protocol-buffers/docs/pythontutorial#writing-a-message
-    create_address_book()
-    read_address_book()
+    # create_address_book()
+    # read_address_book()
+
+    # decode_and_read()
+    # decode_with_proto()
+    encode()
